@@ -160,6 +160,6 @@ npm run dev
 ## Technologies Used
 
 - Frontend: React, CSS
-- Backend: Node.js, Express
+- Backend: Next.js
 - Database: MongoDB
-- Deployment: Vercel/Netlify (or specify)
+- Deployment: Vercel
