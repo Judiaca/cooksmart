@@ -1,38 +1,39 @@
-// const IngredientCard = ({ _id, name, description, flavors, image }) => {
-//   const handleDelete = async () => {
-//     const confirmDelete = confirm(`Are you sure you want to delete ${name}?`);
-//     if (confirmDelete) {
-//       const response = await fetch(`/api/ingredients?id=${_id}`, {
-//         method: "DELETE",
-//       });
-//       if (response.ok) {
-//         // Optionally, refresh the list or navigate
-//         console.log("Ingredient deleted successfully");
-//       } else {
-//         console.error("Failed to delete ingredient");
-//       }
-//     }
-//   };
-
-//   return (
-//     <div className="ingredient-card">
-//       <h2>{name}</h2>
-//       <p>{description}</p>
-//       <p>Flavors: {flavors.join(", ")}</p>
-//       <img src={image} alt={name} />
-//       <button onClick={handleDelete}>Delete</button>
-//     </div>
-//   );
-// };
-
-// components/IngredientCard.js
 import React from "react";
 
-const IngredientCard = ({ ingredient }) => {
+const IngredientCard = ({ ingredient, onDelete }) => {
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`/api/ingredients?id=${ingredient._id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete ingredient");
+      }
+      // Call the onDelete function passed from the parent component
+      onDelete(ingredient._id);
+
+      console.log("Ingredient deleted successfully");
+    } catch (error) {
+      console.error("Error deleting ingredient:", error);
+    }
+  };
+
   return (
     <div>
       <h2>{ingredient.name}</h2>
       <p>{ingredient.description}</p>
+      {ingredient.flavor && ( // Check if the ingredient has flavors
+        <div>
+          <h3>Flavors:</h3>
+          <ul>
+            {ingredient.flavor.map((flavor, index) => (
+              <li key={index}>{flavor}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+      <button onClick={handleDelete}>Delete</button>
     </div>
   );
 };

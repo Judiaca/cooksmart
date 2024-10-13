@@ -1,13 +1,22 @@
-// pages/profile/index.js
-import React from "react";
+import { useSession, signIn, signOut } from "next-auth/react";
+import Layout from "@/components/Layout";
 
-const Profile = () => {
+export default function Component() {
+  const { data: session } = useSession();
+  if (session) {
+    return (
+      <>
+        Signed in as {session?.user?.email} <br />
+        <button onClick={() => signOut()}>Sign out</button>
+      </>
+    );
+  }
   return (
-    <div>
-      <h1>Your Profile</h1>
-      {/* Profile information and settings will go here */}
-    </div>
+    <Layout>
+      <>
+        Not signed in <br />
+        <button onClick={() => signIn()}>Sign in</button>
+      </>
+    </Layout>
   );
-};
-
-export default Profile;
+}

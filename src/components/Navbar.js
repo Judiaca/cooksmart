@@ -1,28 +1,33 @@
-// // Navbar.js
-// import React from "react";
-// import styled from "styled-components";
-
-// const Nav = styled.nav`
-//   /* Add styles for your navbar */
-//   background-color: #333;
-//   color: white;
-//   padding: 1rem;
-// `;
-
-// const Navbar = () => {
-//   return (
-//     <Nav>
-//       <h2>CookSmart</h2>
-//       {/* Other navbar items */}
-//     </Nav>
-//   );
-// };
-
-// export default Navbar; // Ensure this is a default export
-
-// components/Navbar.js
 import React from "react";
 import Link from "next/link";
+import styled from "styled-components";
+
+const Nav = styled.nav`
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  li {
+    margin: 0 10px;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
 
 const Navbar = () => {
   return (

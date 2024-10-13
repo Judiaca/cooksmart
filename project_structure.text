@@ -1,0 +1,48 @@
+- .env.local
+- .gitignore
+- README.md
+- jsconfig.json
+- next.config.mjs
+- package-lock.json
+- package.json
+- src
+  - babel.config.js
+  - components
+    - BackButton.js
+    - ErrorMessage.js
+    - IngredientCard.js
+    - IngredientForm.js
+    - Layout.js
+    - LoadingSpinner.js
+    - Navbar.js
+    - PairingCard.js
+    - PairingForm.js
+  - lib
+    - db.js
+  - models
+    - Ingredient.js
+    - Pairing.js
+    - User.js
+  - pages
+    - _document.js
+    - api
+      - auth
+        - [...nextauth].js
+      - ingredients.js
+      - pairings.js
+    - auth
+      - login.js
+    - index.js
+    - ingredients
+      - index.js
+      - new.js
+    - pairings
+      - index.js
+      - new.js
+    - profile
+      - index.js
+    - test.js
+  - public
+  - styles
+    - globals.css
+    - layout.css
