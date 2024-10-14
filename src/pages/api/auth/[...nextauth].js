@@ -23,8 +23,9 @@ export default NextAuth({
           if (credentials.email) {
             // Login logic
             const user = await User.findOne({ email: credentials.email });
+            console.log("USER", user);
             if (user) {
-              console.log("Email used for query:", credentials.email);
+              console.log("PW used for query:", credentials.password);
               console.log("Hashed password from DB:", user.password);
 
               const isPasswordCorrect = await bcrypt.compare(
@@ -40,42 +41,44 @@ export default NextAuth({
                 throw new Error("Incorrect password");
               }
             } else {
-              throw new Error("User not found");
-            }
-          } else {
-            // Sign-up logic
-            console.log("Sign-up credentials:", credentials);
+              // Sign-up logic
+              console.log("Sign-up credentials:", credentials);
 
-            // console.log("Checking for existing user...");
-            // const existingUser = await User.findOne({
-            //   username: credentials.username,
-            // });
-            // if (existingUser) {
-            //   throw new Error("Username already exists");
-            // }
-            // console.log("Username is unique.");
+              // console.log("Checking for existing user...");
+              // const existingUser = await User.findOne({
+              //   username: credentials.username,
+              // });
+              // if (existingUser) {
+              //   throw new Error("Username already exists");
+              // }
+              // console.log("Username is unique.");
 
-            console.log("Hashing password...");
-            const hashedPassword = await bcrypt.hash(credentials.password, 10);
-            console.log("Hashed password:", hashedPassword);
+              console.log("Hashing password...");
+              const saltRounds = 10;
+              const salt = await bcrypt.genSalt(saltRounds);
+              const passwordHash = await bcrypt.hash(
+                credentials.password,
+                salt
+              );
 
-            const newUser = new User({
-              email: credentials.email,
-              password: hashedPassword,
-              name: credentials.name,
-              surname: credentials.surname,
-              // username: credentials.username,
-            });
+              const newUser = new User({
+                email: credentials.email,
+                password: passwordHash,
+                name: credentials.name,
+                surname: credentials.surname,
+                // username: credentials.username,
+              });
 
-            console.log("Saving new user to database...");
-            try {
-              await newUser.save();
-              console.log("New user saved successfully!");
-              return newUser;
-            } catch (error) {
-              console.error("Error saving new user:", error);
-              // Highlight: Re-throw the specific error for better debugging
-              throw error;
+              console.log("Saving new user to database...");
+              try {
+                await newUser.save();
+                console.log("New user saved successfully!");
+                return newUser;
+              } catch (error) {
+                console.error("Error saving new user:", error);
+                // Highlight: Re-throw the specific error for better debugging
+                throw error;
+              }
             }
           }
         } catch (error) {
