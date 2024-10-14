@@ -3,6 +3,13 @@ import PairingCard from "../../components/PairingCard";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import ErrorMessage from "../../components/ErrorMessage";
 import Layout from "@/components/Layout";
+import styled from "styled-components";
+
+const IngredientsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+`;
 
 const PairingsList = () => {
   const [pairings, setPairings] = useState([]);

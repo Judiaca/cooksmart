@@ -1,4 +1,22 @@
 import React from "react";
+import styled from "styled-components";
+
+const Card = styled.div`
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); // Add a subtle shadow
+  width: 250px; // Adjust this value as needed
+
+  h2 {
+    margin-top: 0; // Remove default top margin
+  }
+  p {
+    word-break: break-word; // Allow long words to break
+    overflow-wrap: break-word; // Alternative for older browsers
+  }
+`;
 
 const IngredientCard = ({ ingredient, onDelete }) => {
   const handleDelete = async () => {
@@ -20,7 +38,7 @@ const IngredientCard = ({ ingredient, onDelete }) => {
   };
 
   return (
-    <div>
+    <Card>
       <h2>{ingredient.name}</h2>
       <p>{ingredient.description}</p>
       {ingredient.flavor && ( // Check if the ingredient has flavors
@@ -34,7 +52,7 @@ const IngredientCard = ({ ingredient, onDelete }) => {
         </div>
       )}
       <button onClick={handleDelete}>Delete</button>
-    </div>
+    </Card>
   );
 };
 

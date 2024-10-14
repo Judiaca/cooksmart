@@ -31,7 +31,7 @@ const Nav = styled.nav`
 
 const Navbar = () => {
   return (
-    <nav>
+    <Nav>
       <ul>
         <li>
           <Link href="/">Home</Link>
@@ -55,7 +55,7 @@ const Navbar = () => {
           <Link href="/auth/login">Login</Link>
         </li>
       </ul>
-    </nav>
+    </Nav>
   );
 };
 

@@ -6,10 +6,15 @@ import Layout from "@/components/Layout";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [error, setError] = useState(null);
+
   const [isLogin, setIsLogin] = useState(true);
   // State to toggle between login and sign-in
+
+  // State variables for sign-up
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  // const [username, setUsername] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,25 +24,42 @@ const Login = () => {
         redirect: false,
         email,
         password,
+        // Conditionally include sign-up data
+        ...(isLogin ? {} : { name, surname }),
       });
 
       if (result.error) {
-        setError(result.error);
+        // Check for specific errors or display a generic message
+        if (result.error === "Username already exists") {
+          setError("This username is already taken. Please choose another.");
+        } else if (result.error === "User not found") {
+          setError("No user found with that email address.");
+        } else {
+          setError(result.error);
+        }
       } else {
-        console.log("Login/Sign-in successful", result);
+        console.log("Login/Sign-up successful", result);
+        // Optionally redirect the user or show a success message
       }
     } catch (err) {
-      setError("An error occurred during login/sign-in.");
+      setError("An error occurred during login/sign-up.");
     }
+  };
+  const toggleLoginSignup = () => {
+    setIsLogin(!isLogin);
+    setError(null); // Clear any previous errors
+    // Clear sign-up fields when switching to login
+    setName("");
+    setSurname("");
   };
 
   return (
     <Layout>
       <div>
-        <h1>{isLogin ? "Login" : "Sign In"}</h1>
+        <h1>{isLogin ? "Login" : "Sign Up"}</h1>
         {error && <ErrorMessage message={error} />}
-
         <form onSubmit={handleSubmit}>
+          {/* Email and Password fields */}
           <div>
             <label htmlFor="email">Email:</label>
             <input
@@ -48,6 +70,7 @@ const Login = () => {
               required
             />
           </div>
+
           <div>
             <label htmlFor="password">Password:</label>
             <input
@@ -58,96 +81,58 @@ const Login = () => {
               required
             />
           </div>
-          <button type="submit">{isLogin ? "Login" : "Sign In"}</button>
+
+          {/* Conditionally render sign-up fields */}
+          {!isLogin && (
+            <div>
+              <div>
+                <label htmlFor="name">Name:</label>
+                <input
+                  type="text"
+                  id="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="surname">Surname:</label>
+
+                <input
+                  type="text"
+                  id="surname"
+                  value={surname}
+                  onChange={(e) => setSurname(e.target.value)}
+                  required
+                />
+              </div>
+
+              {/* <div>
+                <label htmlFor="username">Username:</label>
+                <input
+                  type="text"
+                  id="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
+              </div> */}
+            </div>
+          )}
+
+          <button type="submit">{isLogin ? "Login" : "Sign Up"}</button>
         </form>
 
-        <button onClick={() => setIsLogin(!isLogin)}>
-          {isLogin ? "Switch to Sign In" : "Switch to Login"}
-        </button>
+        {/* Toggle between login and sign-up */}
+        <p>
+          {isLogin ? "Don't have an account?" : "Already have an account?"}
+          <button onClick={toggleLoginSignup} type="button">
+            {isLogin ? "Sign Up" : "Login"}
+          </button>
+        </p>
       </div>
     </Layout>
   );
 };
 
 export default Login;
-
-//   return (
-//     <div>
-//       <h1>Login</h1>
-//       {error && <ErrorMessage message={error} />}
-//       <form onSubmit={handleSubmit}>
-//         <div>
-//           <label htmlFor="email">Email:</label>
-//           <input
-//             type="email"
-//             id="email"
-//             value={email}
-//             onChange={(e) => setEmail(e.target.value)}
-//             required
-//           />
-//         </div>
-//         <div>
-//           <label htmlFor="password">Password:</label>
-//           <input
-//             type="password"
-//             id="password"
-//             value={password}
-//             onChange={(e) => setPassword(e.target.value)}
-//             required
-//           />
-//         </div>
-//         <button type="submit">Login</button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default Login;
-
-// // import React, { useState } from "react";
-// // import ErrorMessage from "../../components/ErrorMessage";
-// // import Layout from "@/components/Layout";
-
-// // const Login = () => {
-// //   const [email, setEmail] = useState("");
-// //   const [password, setPassword] = useState("");
-// //   const [error, setError] = useState(null);
-
-// //   const handleSubmit = async (e) => {
-// //     e.preventDefault();
-// //     // Perform login logic (e.g., call an API to authenticate user)
-// //     // Handle success or error
-// //   };
-
-// //   return (
-// //     <Layout>
-// //       <div>
-// //         <h1>Login</h1>
-// //         {error && <ErrorMessage message={error} />}
-// //         <form onSubmit={handleSubmit}>
-// //           <div>
-// //             <label>Email:</label>
-// //             <input
-// //               type="email"
-// //               value={email}
-// //               onChange={(e) => setEmail(e.target.value)}
-// //               required
-// //             />
-// //           </div>
-// //           <div>
-// //             <label>Password:</label>
-// //             <input
-// //               type="password"
-// //               value={password}
-// //               onChange={(e) => setPassword(e.target.value)}
-// //               required
-// //             />
-// //           </div>
-// //           <button type="submit">Login</button>
-// //         </form>
-// //       </div>
-// //     </Layout>
-// //   );
-// // };
-
-// // export default Login;

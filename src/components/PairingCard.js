@@ -1,4 +1,23 @@
 import React from "react";
+import styled from "styled-components";
+
+const Card = styled.div`
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  width: 250px; // Adjust the width as needed
+
+  h2 {
+    margin-top: 0;
+  }
+
+  p {
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+`;
 
 const PairingCard = ({ pairing, onDelete }) => {
   // Add onDelete prop
@@ -20,7 +39,7 @@ const PairingCard = ({ pairing, onDelete }) => {
   };
 
   return (
-    <div>
+    <Card>
       <h2>
         {
           pairing.ingredients // Check if pairing.ingredients is defined
@@ -32,7 +51,7 @@ const PairingCard = ({ pairing, onDelete }) => {
       </h2>
       <p>{pairing.reason}</p>
       <button onClick={handleDelete}>Delete</button>
-    </div>
+    </Card>
   );
 };
 
