@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import dbConnect from "../../lib/db";
 import Ingredient from "../../models/Ingredient";
+import Flavor from "@/models/Flavor";
 
 export default async function handler(req, res) {
   try {

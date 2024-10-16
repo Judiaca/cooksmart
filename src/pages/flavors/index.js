@@ -1,7 +1,8 @@
+// src/pages/flavors/index.js
+
 import { useState, useEffect } from "react";
 import Layout from "@/components/Layout";
 import styled from "styled-components";
-import Flavor from "@/models/Flavor";
 
 const FlavorsContainer = styled.div`
   display: flex;
@@ -62,6 +63,25 @@ const FlavorsPage = () => {
     }
   };
 
+  const handleDeleteFlavor = async (flavorId) => {
+    try {
+      const response = await fetch(`/api/flavors?id=${flavorId}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        // Update the flavors state to remove the deleted flavor
+        setFlavors(flavors.filter((flavor) => flavor._id !== flavorId));
+      } else {
+        console.error("Failed to delete flavor");
+        // Consider showing an error message to the user
+      }
+    } catch (error) {
+      console.error("Error deleting flavor:", error);
+      // Consider showing an error message to the user
+    }
+  };
+
   return (
     <Layout>
       <div>
@@ -71,6 +91,9 @@ const FlavorsPage = () => {
           {flavors.map((flavor) => (
             <FlavorCard key={flavor._id}>
               <h3>{flavor.name}</h3>
+              <button onClick={() => handleDeleteFlavor(flavor._id)}>
+                Delete
+              </button>
             </FlavorCard>
           ))}
         </FlavorsContainer>
