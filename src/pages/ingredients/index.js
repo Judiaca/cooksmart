@@ -36,6 +36,7 @@ const IngredientsList = () => {
 
   if (loading) return <LoadingSpinner />;
   if (error) return <ErrorMessage message={error} />;
+  if (!ingredients) return <p>No ingredients found.</p>;
 
   const handleDeleteIngredient = (id) => {
     setIngredients(ingredients.filter((ingredient) => ingredient._id !== id));

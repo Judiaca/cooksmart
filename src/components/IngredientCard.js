@@ -46,7 +46,7 @@ const IngredientCard = ({ ingredient, onDelete }) => {
           <h3>Flavors:</h3>
           <ul>
             {ingredient.flavor.map((flavor, index) => (
-              <li key={index}>{flavor}</li>
+              <li key={index}>{flavor.name}</li>
             ))}
           </ul>
         </div>

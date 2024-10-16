@@ -43,6 +43,9 @@ const Navbar = () => {
           <Link href="/ingredients/new">Add Ingredient</Link>
         </li>
         <li>
+          <Link href="/flavors">Flavors</Link>
+        </li>
+        <li>
           <Link href="/pairings">Pairings</Link>
         </li>
         <li>

@@ -5,7 +5,6 @@ const UserSchema = new mongoose.Schema({
   password: { type: String, required: true },
   name: { type: String, required: true },
   surname: { type: String, required: true },
-  // username: { type: String, required: true, unique: true }, // Ensure usernames are unique
 });
 
 export default mongoose.models.User || mongoose.model("User", UserSchema);

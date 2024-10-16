@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 
 const IngredientSchema = new mongoose.Schema({
   id: {
-    type: String, // Or Number, if your IDs are numeric
-    unique: true, // Ensure uniqueness, but not required
+    type: String,
+    unique: true,
   },
   name: {
     type: String,
@@ -13,12 +13,12 @@ const IngredientSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
-  flavor: [String],
   description: {
     type: String,
     required: true,
   },
-  flavor: [String], // An array of strings for flavors
+  //Changed to reference Flavor model
+  flavor: [{ type: mongoose.Schema.Types.ObjectId, ref: "Flavor" }],
 });
 
 const Ingredient =

@@ -44,15 +44,6 @@ export default NextAuth({
               // Sign-up logic
               console.log("Sign-up credentials:", credentials);
 
-              // console.log("Checking for existing user...");
-              // const existingUser = await User.findOne({
-              //   username: credentials.username,
-              // });
-              // if (existingUser) {
-              //   throw new Error("Username already exists");
-              // }
-              // console.log("Username is unique.");
-
               console.log("Hashing password...");
               const saltRounds = 10;
               const salt = await bcrypt.genSalt(saltRounds);
@@ -66,7 +57,6 @@ export default NextAuth({
                 password: passwordHash,
                 name: credentials.name,
                 surname: credentials.surname,
-                // username: credentials.username,
               });
 
               console.log("Saving new user to database...");
@@ -76,14 +66,14 @@ export default NextAuth({
                 return newUser;
               } catch (error) {
                 console.error("Error saving new user:", error);
-                // Highlight: Re-throw the specific error for better debugging
+                // Re-throw the specific error for better debugging
                 throw error;
               }
             }
           }
         } catch (error) {
           console.error("Error in authorize:", error);
-          // Highlight: Re-throw the error to be handled in the frontend
+          // Re-throw the error to be handled in the frontend
           throw error;
         }
       },

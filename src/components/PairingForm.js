@@ -19,6 +19,8 @@ const PairingForm = ({ onSubmit }) => {
     fetchIngredients();
   }, []);
 
+  if (!ingredients) return <p>Loading ingredients...</p>;
+
   const handleIngredientChange = (event) => {
     const ingredientId = event.target.value;
     if (event.target.checked) {

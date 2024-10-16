@@ -14,7 +14,6 @@ const Login = () => {
   // State variables for sign-up
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
-  // const [username, setUsername] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,10 +28,7 @@ const Login = () => {
       });
 
       if (result.error) {
-        // Check for specific errors or display a generic message
-        if (result.error === "Username already exists") {
-          setError("This username is already taken. Please choose another.");
-        } else if (result.error === "User not found") {
+        if (result.error === "User not found") {
           setError("No user found with that email address.");
         } else {
           setError(result.error);
@@ -106,17 +102,6 @@ const Login = () => {
                   required
                 />
               </div>
-
-              {/* <div>
-                <label htmlFor="username">Username:</label>
-                <input
-                  type="text"
-                  id="username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  required
-                />
-              </div> */}
             </div>
           )}
 
