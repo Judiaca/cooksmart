@@ -5,6 +5,7 @@ import ErrorMessage from "../../components/ErrorMessage";
 import Layout from "@/components/Layout";
 import Link from "next/link";
 import styled from "styled-components";
+import IngredientForm from "@/components/IngredientForm";
 
 // Create a styled component for the container
 const IngredientsContainer = styled.div`
@@ -42,17 +43,37 @@ const IngredientsList = () => {
     setIngredients(ingredients.filter((ingredient) => ingredient._id !== id));
   };
 
+  const handleAddIngredient = async (newIngredient) => {
+    try {
+      const response = await fetch("/api/ingredients", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newIngredient),
+      });
+
+      if (response.ok) {
+        const addedIngredient = await response.json();
+        setIngredients([...ingredients, addedIngredient]);
+      } else {
+        console.error("Failed to add ingredient");
+        // Handle the error (e.g., display an error message)
+      }
+    } catch (error) {
+      console.error("Error adding ingredient:", error);
+      // Handle the error
+    }
+  };
+
   return (
     <Layout>
       <div>
         <h1>Ingredients</h1>
-        <Link href="/ingredients/new">
-          <button>Add New Ingredient</button>
-        </Link>
+        <IngredientForm onSubmit={handleAddIngredient} />
 
         <IngredientsContainer>
           {" "}
-          {/* Use the styled container */}
           {ingredients.map((ingredient) => (
             <IngredientCard
               key={ingredient._id}

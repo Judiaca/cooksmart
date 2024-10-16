@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 
 const Button = styled.button`
-  background-color: #4caf50; /* Green */
+  background-color: #333; /* Green */
   border: none;
   color: white;
   padding: 10px 20px;

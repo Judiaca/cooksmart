@@ -9,6 +9,11 @@ const Card = styled.div`
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); // Add a subtle shadow
   width: 250px; // Adjust this value as needed
 
+   &:hover { 
+    transform: translateY(-5px); // Slightly lift the card on hover
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); // Increase shadow intensity
+    transition: all 0.2s ease; // Add a smooth transition
+
   h2 {
     margin-top: 0; // Remove default top margin
   }

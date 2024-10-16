@@ -4,6 +4,7 @@ const GlobalStyles = createGlobalStyle`
   body {
     margin: 0;
     font-family: sans-serif;
+    background-color: #5682ab;
   }
 
   h1, h2 {
@@ -19,6 +20,13 @@ const GlobalStyles = createGlobalStyle`
     flex-direction: column; /* Stack navbar items vertically */
     align-items: center; 
   }
+
+  nav ul li a.active {
+  font-weight: bold;
+  color: yellow;
+}
+
+
 `;
 
 export default GlobalStyles;

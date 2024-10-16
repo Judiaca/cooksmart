@@ -6,16 +6,20 @@ const Card = styled.div`
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 5px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-  width: 250px; // Adjust the width as needed
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); // Add a subtle shadow
+  width: 250px; // Adjust this value as needed
+
+   &:hover { 
+    transform: translateY(-5px); // Slightly lift the card on hover
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); // Increase shadow intensity
+    transition: all 0.2s ease; // Add a smooth transition
 
   h2 {
-    margin-top: 0;
+    margin-top: 0; // Remove default top margin
   }
-
   p {
-    word-break: break-word;
-    overflow-wrap: break-word;
+    word-break: break-word; // Allow long words to break
+    overflow-wrap: break-word; // Alternative for older browsers
   }
 `;
 
